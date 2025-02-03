@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19"></script>
+
+    <!-- Add Material Icons CDN -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-900 font-sans">
+
+    <div class="container mx-auto p-5 sm:p-10 min-h-screen">
+
+        <!-- Header Section -->
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-8 relative">
+            <h3 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 sm:mb-0">Welcome, <span class="text-blue-600"><%= user.name %></span> 👋🏼</h3>
+
+            <!-- Three-Dots Menu for Logout (Mobile Only) -->
+            <!-- Three-Dots Menu for Logout (Mobile Only) -->
+<div class="absolute top-2 right-4 sm:hidden">
+    <button id="menuButton" class="text-gray-600 hover:text-gray-800 text-2xl">
+        <span class="material-icons">more_vert</span>
+    </button>
+    <div id="menuDropdown" class="absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg hidden">
+        <a href="/logout" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</a>
+    </div>
+</div>
+
+
+            <!-- Logout Button (Desktop Only) -->
+            <div class="hidden sm:block">
+                <a href="/logout" class="bg-red-600 hover:bg-red-700 transition px-6 py-3 rounded-lg text-sm shadow-lg text-white transform hover:scale-105">
+                    Logout
+                </a>
+            </div>
+        </div>
+
+        <!-- Create Post Form Section -->
+        <div class="mb-8">
+            <h5 class="text-lg font-semibold text-gray-600 mb-4">Create a new post:</h5>
+            <form method="post" action="/post" class="space-y-6">
+                <textarea class="w-full md:w-2/3 lg:w-1/2 rounded-xl border border-gray-300 p-6 bg-white text-gray-700 focus:ring-4 focus:ring-blue-200 transition shadow-md outline-none resize-none" placeholder="What's on your mind?" name="content"></textarea>
+                <div class="flex justify-start">
+                    <input class="px-6 py-3 bg-blue-600 hover:bg-blue-700 transition-all rounded-xl w-full sm:w-40 text-sm shadow-md cursor-pointer text-white transform hover:scale-105" type="submit" value="Create New Post"> 
+                </div>
+            </form>
+        </div>
+
+        <!-- Posts Section -->
+        <div class="posts mt-10">
+            <h3 class="text-3xl font-bold text-gray-800 mb-6">Your Posts</h3>
+            <div class="postcontainer space-y-8">
+                <% user.posts.reverse().forEach(function(post){ %>
+                    <div class="post w-full sm:w-2/3 lg:w-1/2 p-8 rounded-2xl border border-gray-300 bg-white shadow-lg hover:shadow-2xl transition transform hover:scale-105">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="text-blue-600 font-semibold text-lg">@<%= user.username %></h4>
+                            <small class="text-gray-500 text-sm"><%= new Date(post.createdAt).toLocaleString() %></small>
+                        </div>
+                        <p class="text-md text-gray-700 mb-4"><%= post.content %></p>
+                        <div class="flex justify-between items-center text-sm">
+                            <small class="text-gray-500"><%= post.likes.length %> Likes</small>
+
+                            <div class="flex gap-6">
+                                <a href="/like/<%= post._id %>" class="text-blue-600 hover:text-blue-700 transition duration-300"> 
+                                    <%= post.likes.includes(user._id) ? "Unlike" : "Like" %>
+                                </a>
+                                <a href="/edit/<%= post._id %>" class="text-gray-500 hover:text-gray-700 transition duration-300">Edit</a>
+                                <a href="/delete/<%= post._id %>" class="text-red-600 hover:text-red-700 transition duration-300">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Toggle the dropdown menu
+        document.getElementById('menuButton').addEventListener('click', function() {
+            var menu = document.getElementById('menuDropdown');
+            menu.classList.toggle('hidden');
+        });
+
+        // Close the menu if the user clicks outside of it
+        window.addEventListener('click', function(event) {
+            if (!event.target.closest('#menuButton')) {
+                document.getElementById('menuDropdown').classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
