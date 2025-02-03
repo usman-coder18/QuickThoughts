@@ -1,4 +1,5 @@
 const express = require('express');
+
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
@@ -8,7 +9,6 @@ require('dotenv').config();
 const Post = require('./models/post');  // Adjust the path if needed
 const post = require('./models/post');
 const path = require("path");
-app.set("views", path.join(__dirname, "views"));
 
 
 const app = express();
@@ -16,6 +16,7 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+app.set("views", path.join(__dirname, "views"));
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
