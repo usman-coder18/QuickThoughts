@@ -7,6 +7,8 @@ const userModel = require('./models/user');
 require('dotenv').config();
 const Post = require('./models/post');  // Adjust the path if needed
 const post = require('./models/post');
+const path = require("path");
+app.set("views", path.join(__dirname, "views"));
 
 
 const app = express();
