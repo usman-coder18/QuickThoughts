@@ -18,9 +18,9 @@
 
         <form action="/login" method="post" class="space-y-4">
             <div>
-                <% if (message === 'emailExists') { %>
+                <!-- <% if (message === 'emailExists') { %>
                     <p style="color: red;">This email is already registered. Please log in.</p>
-                <% } %>
+                <% } %> -->
                 
                 <input class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" type="email" placeholder="Email" name="email" required>
             </div>
@@ -51,9 +51,10 @@
                 let toastText = message === "registered" ? "User registered successfully! Please log in."
                             : message === "invalid" ? "Invalid email or password"
                             : message === "incorrect" ? "Incorrect password"
+                            :message === "login"?" sucessfully login"
                             : "";
 
-                let bgColor = message === "registered" ? "green" : "red";
+                let bgColor = message === "registered" ? "red" : "green";
 
                 Toastify({
                     text: toastText,
