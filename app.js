@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 
 const mongoose = require('mongoose');
@@ -5,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const userModel = require('./models/user');
-require('dotenv').config();
 const Post = require('./models/post');  // Adjust the path if needed
 const post = require('./models/post');
 const path = require("path");
