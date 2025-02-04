@@ -1,17 +1,20 @@
+require('dotenv').config(); // Load environment variables
 const mongoose = require('mongoose');
 
 const bcrypt = require('bcrypt');
-require('dotenv').config(); // Load environment variables
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
+
+const mongoURI = process.env.MONGO_URI || 'fallback_mongo_uri';
+console.log("Mongo URI:", mongoURI); // Debugging
+
+mongoose.connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    
 })
 .then(() => console.log("✅ MongoDB connected successfully"))
 .catch(err => console.log("❌ MongoDB connection error:", err));
-console.log("Mongo URI:", process.env.MONGO_URI); // Debugging
+
 
 
 // Define User Schema
