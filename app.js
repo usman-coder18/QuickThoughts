@@ -68,7 +68,7 @@ app.post('/register', async (req, res) => {
         console.log("✅ User successfully registered");
         res.redirect('/login?message=registered');  // Success message
     } catch (error) {
-        console.error("🔥 Registration Error:", error);
+        console.error("🔥 Registration Error:");
         res.status(500).send("Server error during registration");
     }
 });
@@ -83,13 +83,13 @@ app.post('/login', async (req, res) => {
         let user = await userModel.findOne({ email });
 
         if (!user) {
-            console.log("❌ User not found:", email);
+            console.log("❌ User not found:");
             return res.redirect('/login?message=invalid');  // Invalid email
         }
 
         const match = await bcrypt.compare(password, user.password);
         if (!match) {
-            console.log("❌ Incorrect password for:", email);
+            console.log("❌ Incorrect password");
             return res.redirect('/login?message=incorrect');  // Incorrect password
         }
 
@@ -98,7 +98,7 @@ app.post('/login', async (req, res) => {
         
         res.redirect('/profile?message=login');  // Successful login
     } catch (error) {
-        console.error("🔥 Login Error:", error);
+        console.error("🔥 Login Error:");
         res.status(500).send("Server error during login");
     }
 });
@@ -109,7 +109,7 @@ app.get('/profile', isLoggedIn, async (req, res) => {
         let user = await userModel.findOne({ email: req.user.email }).populate("posts");
         res.render('profile', { user, message: req.query.message });
     } catch (error) {
-        console.error("🔥 Error loading profile:", error);
+        console.error("🔥 Error loading profile:");
         res.status(500).send("Error loading profile");
     }
 });

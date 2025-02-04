@@ -5,7 +5,6 @@ const bcrypt = require('bcrypt');
 // Connect to MongoDB
 
 const mongoURI = process.env.MONGO_URI || 'fallback_mongo_uri';
-console.log("Mongo URI:", mongoURI); // Debugging
 
 mongoose.connect(mongoURI)
 .then(() => console.log("✅ MongoDB connected successfully"))
