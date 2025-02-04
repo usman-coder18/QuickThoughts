@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 <body class="bg-gray-100 text-gray-900 font-sans flex items-center justify-center min-h-screen">
@@ -18,50 +17,121 @@
 
         <form action="/login" method="post" class="space-y-4">
             <div>
-                <!-- <% if (message === 'emailExists') { %>
-                    <p style="color: red;">This email is already registered. Please log in.</p>
-                <% } %> -->
-                
                 <input class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" type="email" placeholder="Email" name="email" required>
             </div>
             <div class="relative">
-                <!-- <input class="..." type="password" name="password" required oninput="this.value = this.value.trim()"> -->
-                <input id="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" 
-                type="password" placeholder="Password" name="password" required oninput="this.value = this.value.trim()">
-         
-         
-         
-                <!-- <input id="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" type="password" placeholder="Password" name="password" required> -->
+                <input id="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" type="password" placeholder="Password" name="password" required oninput="this.value = this.value.trim()">
                 <button type="button" class="absolute right-3 top-2 text-gray-600 hover:text-gray-800" onclick="togglePassword()">👁️</button>
             </div>
             <input class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg cursor-pointer transition" type="submit" value="Login">
         </form>
     </div>
 
+    <style>
+        .custom-toast {
+            color: white !important;
+            font-family: 'Arial', sans-serif !important;
+            font-size: 15px !important;
+            font-weight: 600 !important;
+            border-radius: 8px !important;
+            padding: 12px 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .custom-toast.success {
+            background-color: #2D6A4F !important;  /* Success (green) */
+        }
+
+        .custom-toast.error {
+            background-color: #D32F2F !important;  /* Error (red) */
+        }
+
+        .custom-toast.warning {
+            background-color: #F57C00 !important;  /* Warning (yellow) */
+        }
+
+        .custom-toast.info {
+            background-color: #1976D2 !important;  /* Info (blue) */
+        }
+
+        .toastify .toast {
+            animation: slideIn 0.3s ease-out, fadeOut 0.3s ease-in 2.7s;
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateY(-100px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+    
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
         function togglePassword() {
             let passField = document.getElementById("password");
             passField.type = passField.type === "password" ? "text" : "password";
         }
 
-        // Show toast messages dynamically
         document.addEventListener("DOMContentLoaded", function () {
-            let message = document.getElementById("toast-message")?.getAttribute("data-message");
-            if (message) {
-                let toastText = message === "registered" ? "User registered successfully! Please log in."
-                            : message === "invalid" ? "Invalid email or password"
-                            : message === "incorrect" ? "Incorrect password"
-                            :message === "login"?" sucessfully login"
-                            : "";
+            const toastMessage = document.getElementById("toast-message");
+            const message = toastMessage ? toastMessage.getAttribute("data-message") : null;
 
-                let bgColor = message === "registered" ? "red" : "green";
+            if (message) {
+                let toastText = "";
+                let bgColor = "";
+
+                switch (message) {
+                    case "registered":
+                        toastText = "User created successfully!";
+                        bgColor = "success";
+                        break;
+                    case "invalid":
+                        toastText = "Invalid email or password";
+                        bgColor = "error";
+                        break;
+                    case "incorrect":
+                        toastText = "Incorrect password";
+                        bgColor = "error";
+                        break;
+                    case "login":
+                        toastText = "Successfully logged in";
+                        bgColor = "success";
+                        break;
+                    case "sessionExpired":
+                        toastText = "Session expired, please log in again.";
+                        bgColor = "error";
+                        break;
+                    case "loggedOut":
+                        toastText = "Successfully logged out!";
+                        bgColor = "success";
+                        break;
+                    default:
+                        toastText = "Something went wrong!";
+                        bgColor = "error";
+                }
 
                 Toastify({
                     text: toastText,
                     duration: 3000,
                     gravity: "top",
                     position: "right",
-                    backgroundColor: bgColor,
+                    className: `custom-toast ${bgColor}`,
+                    style: {
+                        color: "white",
+                    },
                 }).showToast();
             }
         });
