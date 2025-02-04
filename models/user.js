@@ -1,6 +1,5 @@
 require('dotenv').config(); // Load environment variables
 const mongoose = require('mongoose');
-
 const bcrypt = require('bcrypt');
 
 // Connect to MongoDB
@@ -8,14 +7,9 @@ const bcrypt = require('bcrypt');
 const mongoURI = process.env.MONGO_URI || 'fallback_mongo_uri';
 console.log("Mongo URI:", mongoURI); // Debugging
 
-mongoose.connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
+mongoose.connect(mongoURI)
 .then(() => console.log("✅ MongoDB connected successfully"))
 .catch(err => console.log("❌ MongoDB connection error:", err));
-
-
 
 // Define User Schema
 const userSchema = new mongoose.Schema({
@@ -40,7 +34,6 @@ userSchema.pre('save', async function (next) {
         next(err); // Error handling in the hook
     }
 });
-
 
 // Add a Virtual Property for Full Name (if applicable)
 userSchema.virtual('fullName').get(function () {
