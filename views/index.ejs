@@ -24,7 +24,6 @@
     </div>
 
     <style>
-        /* Custom Toast Styles */
         .toastify .toast {
             color: white !important;
             font-family: 'Arial', sans-serif !important;
@@ -37,19 +36,19 @@
         }
 
         .toastify .toast.success {
-            background-color: #2D6A4F !important;  /* Success (green) */
+            background-color: #2D6A4F !important;  
         }
 
         .toastify .toast.error {
-            background-color: #D32F2F !important;  /* Error (red) */
+            background-color: #D32F2F !important;  
         }
 
         .toastify .toast.warning {
-            background-color: #F57C00 !important;  /* Warning (yellow) */
+            background-color: #F57C00 !important; 
         }
 
         .toastify .toast.info {
-            background-color: #1976D2 !important;  /* Info (blue) */
+            background-color: #1976D2 !important; 
         }
 
         .toastify .toast {
@@ -110,7 +109,7 @@
                 duration: 3000,
                 gravity: "top",
                 position: "right",
-                className: `toast ${messageType}`, // Use class "toast" + type class
+                className: `toast ${messageType}`, 
                 style: { color: "white" },
             }).showToast();
         }

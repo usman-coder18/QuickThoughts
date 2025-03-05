@@ -7,19 +7,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19"></script>
 
-    <!-- Add Material Icons CDN -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="bg-gray-100 text-gray-900 font-sans">
 
     <div class="container mx-auto p-5 sm:p-10 min-h-screen">
 
-        <!-- Header Section -->
         <div class="flex flex-col sm:flex-row justify-between items-center mb-8 relative">
             <h3 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 sm:mb-0">Welcome, <span class="text-blue-600"><%= user.name %></span> 👋🏼</h3>
 
-            <!-- Three-Dots Menu for Logout (Mobile Only) -->
-            <!-- Three-Dots Menu for Logout (Mobile Only) -->
 <div class="absolute top-2 right-4 sm:hidden">
     <button id="menuButton" class="text-gray-600 hover:text-gray-800 text-2xl">
         <span class="material-icons">more_vert</span>
@@ -30,7 +26,6 @@
 </div>
 
 
-            <!-- Logout Button (Desktop Only) -->
             <div class="hidden sm:block">
                 <a href="/logout" class="bg-red-600 hover:bg-red-700 transition px-6 py-3 rounded-lg text-sm shadow-lg text-white transform hover:scale-105">
                     Logout
@@ -38,7 +33,6 @@
             </div>
         </div>
 
-        <!-- Create Post Form Section -->
         <div class="mb-8">
             <h5 class="text-lg font-semibold text-gray-600 mb-4">Create a new post:</h5>
             <form method="post" action="/post" class="space-y-6">
@@ -49,7 +43,6 @@
             </form>
         </div>
 
-        <!-- Posts Section -->
         <div class="posts mt-10">
             <h3 class="text-3xl font-bold text-gray-800 mb-6">Your Posts</h3>
             <div class="postcontainer space-y-8">
@@ -79,13 +72,11 @@
     </div>
 
     <script>
-        // Toggle the dropdown menu
         document.getElementById('menuButton').addEventListener('click', function() {
             var menu = document.getElementById('menuDropdown');
             menu.classList.toggle('hidden');
         });
 
-        // Close the menu if the user clicks outside of it
         window.addEventListener('click', function(event) {
             if (!event.target.closest('#menuButton')) {
                 document.getElementById('menuDropdown').classList.add('hidden');

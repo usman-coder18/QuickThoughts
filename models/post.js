@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 
-// Schema   
 const postSchema = mongoose.Schema({
  user:{
     type: mongoose.Schema.Types.ObjectId,
@@ -21,6 +20,5 @@ const postSchema = mongoose.Schema({
 },
 {timestamps:true});
 
-// Model
 
 module.exports = mongoose.model('Post', postSchema);
